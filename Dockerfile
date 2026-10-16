@@ -3,9 +3,11 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# La URL de l'API s'injecta en temps de build (Vite la incrusta al bundle).
+# La URL de l'API i la llicència PrimeUI s'injecten en temps de build.
 ARG VITE_API_BASE_URL=http://localhost:8080/api
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ARG VITE_PRIMEUI_LICENSE=
+ENV VITE_PRIMEUI_LICENSE=$VITE_PRIMEUI_LICENSE
 
 COPY package.json package-lock.json ./
 RUN npm ci
