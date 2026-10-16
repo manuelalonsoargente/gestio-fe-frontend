@@ -137,7 +137,7 @@ onMounted(load)
   <div class="mx-auto flex max-w-6xl flex-col gap-4">
     <PageHeader title="Activitat" subtitle="Registre d'auditoria de les operacions del sistema." />
 
-    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div class="card">
       <div class="mb-3 flex flex-wrap items-center gap-2">
         <IconField class="w-full sm:w-64">
           <InputIcon class="pi pi-search" />

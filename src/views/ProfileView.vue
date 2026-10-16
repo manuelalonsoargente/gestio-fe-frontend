@@ -107,7 +107,7 @@ async function savePassword(): Promise<void> {
     </header>
 
     <form
-      class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+      class="flex flex-col gap-4 card"
       @submit.prevent="saveData"
     >
       <div>
@@ -143,7 +143,7 @@ async function savePassword(): Promise<void> {
     </form>
 
     <form
-      class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+      class="flex flex-col gap-4 card"
       @submit.prevent="savePassword"
     >
       <div>

@@ -40,13 +40,20 @@ onMounted(async () => {
 
 <template>
   <div class="mx-auto flex max-w-5xl flex-col gap-6">
-    <header>
-      <h1 class="text-2xl font-semibold text-slate-800">
-        Hola, {{ auth.user?.name }}
-      </h1>
-      <p class="mt-1 text-sm text-slate-500">
-        Benvingut/da al panell de gestió de <span class="font-medium">Gestió FE</span>.
-      </p>
+    <header class="flex items-center gap-4">
+      <div
+        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 text-lg font-semibold text-white shadow-sm shadow-teal-600/25"
+      >
+        {{ auth.initials }}
+      </div>
+      <div>
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-900">
+          Hola, {{ auth.user?.name }}
+        </h1>
+        <p class="mt-0.5 text-sm text-slate-500">
+          Benvingut/da al panell de gestió de <span class="font-medium text-slate-600">Gestió FE</span>.
+        </p>
+      </div>
     </header>
 
     <section class="flex flex-wrap gap-2">
@@ -60,30 +67,52 @@ onMounted(async () => {
     </section>
 
     <section v-if="showStats" class="grid gap-4 sm:grid-cols-2">
-      <div v-if="canViewUsers" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div
+        v-if="canViewUsers"
+        class="card transition-shadow hover:shadow-card-hover"
+      >
         <div class="flex items-center justify-between">
           <span class="text-sm font-medium text-slate-500">Usuaris</span>
-          <i class="pi pi-users text-teal-600" />
+          <span
+            class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-50 text-teal-600"
+          >
+            <i class="pi pi-users" />
+          </span>
         </div>
-        <p class="mt-3 text-3xl font-semibold text-slate-800">{{ usersTotal }}</p>
-        <RouterLink :to="{ name: 'users' }" class="mt-3 inline-block text-sm text-teal-700 hover:underline">
-          Gestionar usuaris →
+        <p class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">{{ usersTotal }}</p>
+        <RouterLink
+          :to="{ name: 'users' }"
+          class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-teal-800"
+        >
+          Gestionar usuaris
+          <i class="pi pi-arrow-right text-xs" />
         </RouterLink>
       </div>
 
-      <div v-if="canViewRoles" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div
+        v-if="canViewRoles"
+        class="card transition-shadow hover:shadow-card-hover"
+      >
         <div class="flex items-center justify-between">
           <span class="text-sm font-medium text-slate-500">Rols</span>
-          <i class="pi pi-shield text-teal-600" />
+          <span
+            class="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-50 text-sky-600"
+          >
+            <i class="pi pi-shield" />
+          </span>
         </div>
-        <p class="mt-3 text-3xl font-semibold text-slate-800">{{ rolesTotal }}</p>
-        <RouterLink :to="{ name: 'roles' }" class="mt-3 inline-block text-sm text-teal-700 hover:underline">
-          Gestionar rols →
+        <p class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">{{ rolesTotal }}</p>
+        <RouterLink
+          :to="{ name: 'roles' }"
+          class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-teal-800"
+        >
+          Gestionar rols
+          <i class="pi pi-arrow-right text-xs" />
         </RouterLink>
       </div>
     </section>
 
-    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <section class="card">
       <h2 class="font-medium text-slate-800">Els teus permisos</h2>
       <div class="mt-3 flex flex-wrap gap-1">
         <Tag
@@ -98,10 +127,9 @@ onMounted(async () => {
       </div>
     </section>
 
-
     <p v-if="error" class="text-sm text-red-600">{{ error }}</p>
 
-    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+    <section class="card">
       <h2 class="font-medium text-slate-800">Compte</h2>
       <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
         <div>

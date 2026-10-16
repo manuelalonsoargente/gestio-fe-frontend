@@ -41,18 +41,28 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-slate-100 p-4">
-    <div class="w-full max-w-md">
+  <div class="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-100 p-4">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-teal-200/40 blur-3xl"
+    />
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-teal-100/60 blur-3xl"
+    />
+    <div class="relative w-full max-w-md">
       <div class="mb-6 flex flex-col items-center gap-2">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-600 text-white">
+        <div
+          class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 text-white shadow-sm shadow-teal-600/25"
+        >
           <i class="pi pi-briefcase text-2xl" />
         </div>
-        <h1 class="text-xl font-semibold text-slate-800">Gestió FE</h1>
-        <p class="text-sm text-slate-500">Accedeix amb el teu compte</p>
+        <h1 class="text-xl font-semibold tracking-tight text-slate-900">Gestió FE</h1>
+        <p class="text-sm text-slate-500">Formació en Empresa · accedeix amb el teu compte</p>
       </div>
 
       <form
-        class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+        class="flex flex-col gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-card"
         @submit.prevent="handleSubmit"
       >
         <div v-if="route.query.restablert" class="flex items-start gap-2 rounded-lg bg-teal-50 p-3 text-sm text-teal-700">

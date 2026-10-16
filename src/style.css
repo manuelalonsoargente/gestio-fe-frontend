@@ -1,4 +1,14 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+@theme {
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --shadow-card:
+    0 1px 2px 0 rgb(15 23 42 / 0.05), 0 1px 3px 0 rgb(15 23 42 / 0.04);
+  --shadow-card-hover:
+    0 2px 4px 0 rgb(15 23 42 / 0.06), 0 4px 8px -2px rgb(15 23 42 / 0.08);
+}
 
 html,
 body,
@@ -10,13 +20,13 @@ body {
   margin: 0;
   background-color: #f8fafc;
   color: #0f172a;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-card;
+  }
 }

@@ -9,6 +9,32 @@ import App from './App.vue'
 import router from './router'
 import './style.css'
 
+// Tema Aura amb el color primari en teal (coherent amb la marca de l'aplicació).
+const theme = {
+  ...Aura,
+  semantic: {
+    ...Aura.semantic,
+    primary: {
+      ...Aura.semantic?.primary,
+      50: '{teal.50}',
+      100: '{teal.100}',
+      200: '{teal.200}',
+      300: '{teal.300}',
+      400: '{teal.400}',
+      500: '{teal.500}',
+      600: '{teal.600}',
+      700: '{teal.700}',
+      800: '{teal.800}',
+      900: '{teal.900}',
+      950: '{teal.950}',
+      color: 'light-dark({primary.500}, {primary.400})',
+      contrastColor: 'light-dark(#ffffff, {surface.900})',
+      hoverColor: 'light-dark({primary.600}, {primary.300})',
+      activeColor: 'light-dark({primary.700}, {primary.200})',
+    },
+  },
+} as typeof Aura
+
 // Textos de PrimeVue en valencià (es fusionen amb els valors per defecte).
 const locale = {
   startsWith: 'Comença per',
@@ -59,7 +85,7 @@ app.use(PrimeVue, {
   // PrimeVue 5 mostra el banner "Invalid PrimeUI License".
   license: import.meta.env.VITE_PRIMEUI_LICENSE || undefined,
   theme: {
-    preset: Aura,
+    preset: theme,
     options: {
       prefix: 'p',
       darkModeSelector: 'system',

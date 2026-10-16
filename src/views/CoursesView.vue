@@ -167,7 +167,7 @@ onMounted(load)
       </Button>
     </PageHeader>
 
-    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div class="card">
       <div class="mb-3 flex justify-end">
         <IconField class="w-full sm:w-72">
           <InputIcon class="pi pi-search" />

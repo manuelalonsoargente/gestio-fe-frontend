@@ -246,7 +246,7 @@ onMounted(() => {
       </Button>
     </PageHeader>
 
-    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div class="card">
       <div class="mb-3 flex flex-col gap-3 sm:flex-row sm:justify-between">
         <Select
           v-model="courseFilter"
