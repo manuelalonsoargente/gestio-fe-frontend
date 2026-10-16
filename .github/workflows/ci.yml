@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    name: Tipus, tests i build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepara Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instal·la dependències
+        run: npm ci
+
+      - name: Comprova tipus
+        run: npm run typecheck
+
+      - name: Executa les proves
+        run: npm run test
+
+      - name: Compila
+        run: npm run build

@@ -1,0 +1,18 @@
+services:
+  frontend:
+    build:
+      context: .
+      network: host
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8080/api}
+    image: gestio-fe-frontend:local
+    container_name: gestio-fe-frontend
+    ports:
+      - "8081:80"
+    restart: unless-stopped
+    networks:
+      - gestio-fe-net
+
+networks:
+  gestio-fe-net:
+    external: true
