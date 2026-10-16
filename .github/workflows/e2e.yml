@@ -35,6 +35,8 @@ jobs:
         with:
           repository: ${{ vars.BACKEND_REPO }}
           path: backend
+          # Necessari perquè el repo del backend és privat.
+          token: ${{ secrets.BACKEND_TOKEN }}
 
       - name: Prepara PHP
         uses: shivammathur/setup-php@v2
