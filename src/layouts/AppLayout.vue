@@ -19,6 +19,8 @@ const navItems = computed<NavItem[]>(() =>
     [
       { name: 'dashboard', label: 'Panell', icon: 'pi pi-home' },
       { name: 'users', label: 'Usuaris', icon: 'pi pi-users', permission: 'gestionar-usuaris' },
+      { name: 'students', label: 'Alumnat', icon: 'pi pi-graduation-cap', permission: 'gestionar-alumnat' },
+      { name: 'courses', label: 'Cursos', icon: 'pi pi-book', permission: 'gestionar-alumnat' },
       { name: 'roles', label: 'Rols', icon: 'pi pi-shield', permission: 'gestionar-rols' },
       { name: 'permissions', label: 'Permisos', icon: 'pi pi-key', permission: 'gestionar-permisos' },
       { name: 'activity', label: 'Activitat', icon: 'pi pi-history', permission: 'veure-auditoria' },

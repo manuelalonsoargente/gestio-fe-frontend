@@ -6,7 +6,7 @@ import AppLayout from './AppLayout.vue'
 import { useAuthStore } from '../stores/auth'
 import type { AuthUser } from '../types'
 
-const routeNames = ['dashboard', 'users', 'roles', 'permissions', 'activity', 'profile']
+const routeNames = ['dashboard', 'users', 'students', 'courses', 'roles', 'permissions', 'activity', 'profile']
 
 function buildRouter() {
   return createRouter({
@@ -47,7 +47,7 @@ describe('AppLayout', () => {
 
     const text = wrapper.text()
     expect(text).toContain('Usuaris')
-    expect(text).toContain('El meu perfil')
+    expect(text).not.toContain('Alumnat')
     expect(text).not.toContain('Rols')
     expect(text).not.toContain('Permisos')
     expect(text).not.toContain('Activitat')
@@ -61,6 +61,7 @@ describe('AppLayout', () => {
       roles: ['admin'],
       permissions: [
         'gestionar-usuaris',
+        'gestionar-alumnat',
         'gestionar-rols',
         'gestionar-permisos',
         'veure-auditoria',
@@ -69,6 +70,8 @@ describe('AppLayout', () => {
 
     const text = wrapper.text()
     expect(text).toContain('Usuaris')
+    expect(text).toContain('Alumnat')
+    expect(text).toContain('Cursos')
     expect(text).toContain('Rols')
     expect(text).toContain('Permisos')
     expect(text).toContain('Activitat')

@@ -10,7 +10,7 @@
 //
 // Ús: npm run e2e
 import { spawn } from 'node:child_process'
-import { mkdtempSync } from 'node:fs'
+import { mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
@@ -117,6 +117,7 @@ try {
   await send('Runtime.enable')
   await send('Network.enable')
   await send('Page.enable')
+  await send('DOM.enable')
 
   // 1. Carrega /login
   await send('Page.navigate', { url: `${APP}/login` })
@@ -281,6 +282,72 @@ try {
     { label: 'permís eliminat', timeout: 15000 },
   )
   check('Elimina un permís des de la interfície', true)
+
+  // 6c. Formació en Empresa: catàleg de cursos
+  await send('Page.navigate', { url: `${APP}/cursos` })
+  await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes('Catàleg de cursos'), { label: 'vista cursos' })
+  check('La vista de cursos carrega', true)
+
+  const courseName = `E2E Curs ${uniq}`
+  await evaluate(
+    `[...document.querySelectorAll('button')].find(b => b.innerText.includes('Nou curs')).click()`,
+  )
+  await waitFor(async () => await evaluate('!!document.querySelector("input#course-name")'), {
+    label: 'diàleg nou curs',
+  })
+  await evaluate(`
+    (() => {
+      const el = document.querySelector('input#course-name')
+      const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+      s.call(el, '${courseName}')
+      el.dispatchEvent(new Event('input', { bubbles: true }))
+      return true
+    })()
+  `)
+  await evaluate(
+    `[...document.querySelectorAll('.p-dialog button')].find(b => b.innerText.trim() === 'Guardar').click()`,
+  )
+  await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes(courseName), {
+    label: 'curs creat a la taula',
+  })
+  check('Crea un curs des de la interfície', true)
+
+  // 6d. Alumnat: càrrega massiva des d'un CSV
+  const csvDir = mkdtempSync(join(tmpdir(), 'gestio-fe-e2e-'))
+  const csvPath = join(csvDir, 'alumnes.csv')
+  const studentName = `NomE2E${uniq}`
+  writeFileSync(csvPath, ['Nom,Cognoms,Curs', `${studentName},Cognoms E2E,${courseName}`].join('\n'))
+
+  await send('Page.navigate', { url: `${APP}/alumnat` })
+  await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes('Nou alumne'), { label: 'vista alumnat' })
+  check("La vista d'alumnat carrega", true)
+
+  await evaluate(
+    `[...document.querySelectorAll('button')].find(b => b.innerText.includes('Importar')).click()`,
+  )
+  await waitFor(async () => await evaluate('!!document.querySelector("input[type=file]")'), {
+    label: 'camp de fitxer visible',
+  })
+  const root = await send('DOM.getDocument')
+  const { nodeId } = await send('DOM.querySelector', {
+    nodeId: root.root.nodeId,
+    selector: 'input[type=file]',
+  })
+  await send('DOM.setFileInputFiles', { files: [csvPath], nodeId })
+  await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes("S'han importat"), {
+    label: 'resultat de la importació',
+    timeout: 20000,
+  })
+  check("Importa alumnat des d'un fitxer CSV", true)
+
+  await evaluate(
+    `[...document.querySelectorAll('.p-dialog button')].find(b => b.innerText.trim() === 'Tanca')?.click()`,
+  )
+  await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes(studentName), {
+    label: 'alumne a la taula',
+    timeout: 15000,
+  })
+  check("L'alumne importat apareix a la taula", true)
 
   // 7. Perfil d'usuari (validació i desament)
   await send('Page.navigate', { url: `${APP}/perfil` })

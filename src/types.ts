@@ -38,6 +38,26 @@ export interface Role {
   updated_at: string | null
 }
 
+export interface Course {
+  id: number
+  name: string
+  order: number
+  students_count?: number
+  created_at: string | null
+  updated_at: string | null
+}
+
+export interface Student {
+  id: number
+  name: string
+  surnames: string
+  full_name: string
+  course_id: number
+  course?: { id: number; name: string }
+  created_at: string | null
+  updated_at: string | null
+}
+
 export interface Permission {
   id: number
   name: string

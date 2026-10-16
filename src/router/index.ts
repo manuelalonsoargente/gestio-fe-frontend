@@ -57,6 +57,18 @@ const router = createRouter({
           meta: { title: 'Usuaris', requiresPermission: 'gestionar-usuaris' },
         },
         {
+          path: 'alumnat',
+          name: 'students',
+          component: () => import('../views/StudentsView.vue'),
+          meta: { title: 'Alumnat', requiresPermission: 'gestionar-alumnat' },
+        },
+        {
+          path: 'cursos',
+          name: 'courses',
+          component: () => import('../views/CoursesView.vue'),
+          meta: { title: 'Cursos', requiresPermission: 'gestionar-alumnat' },
+        },
+        {
           path: 'rols',
           name: 'roles',
           component: () => import('../views/RolesView.vue'),
