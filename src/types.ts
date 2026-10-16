@@ -49,3 +49,18 @@ export interface Permission {
 export interface ValidationErrors {
   [field: string]: string[]
 }
+
+export interface ActivityLog {
+  id: number
+  action: string
+  model_type: string | null
+  model_id: number | null
+  description: string
+  changes: Record<string, unknown> | null
+  user: {
+    id: number
+    name: string
+    email: string
+  } | null
+  created_at: string
+}

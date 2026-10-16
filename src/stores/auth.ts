@@ -63,6 +63,19 @@ export const useAuthStore = defineStore('auth', {
       return data.user
     },
 
+    async register(payload: {
+      name: string
+      email: string
+      password: string
+      password_confirmation: string
+    }): Promise<AuthUser> {
+      await ensureCsrfCookie()
+      const { data } = await api.post<{ user: AuthUser }>('/auth/register', payload)
+      this.user = data.user
+      this.status = 'authenticated'
+      return data.user
+    },
+
     async logout(): Promise<void> {
       try {
         await ensureCsrfCookie()

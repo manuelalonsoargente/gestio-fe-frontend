@@ -22,6 +22,24 @@ const router = createRouter({
       meta: { guestOnly: true, title: 'Accés' },
     },
     {
+      path: '/registre',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue'),
+      meta: { guestOnly: true, title: 'Registre' },
+    },
+    {
+      path: '/oblidar-contrasenya',
+      name: 'forgot-password',
+      component: () => import('../views/ForgotPasswordView.vue'),
+      meta: { guestOnly: true, title: 'Recuperar contrasenya' },
+    },
+    {
+      path: '/restablir-contrasenya',
+      name: 'reset-password',
+      component: () => import('../views/ResetPasswordView.vue'),
+      meta: { title: 'Restablir contrasenya' },
+    },
+    {
       path: '/',
       component: AppLayout,
       meta: { requiresAuth: true },
@@ -49,6 +67,12 @@ const router = createRouter({
           name: 'permissions',
           component: () => import('../views/PermissionsView.vue'),
           meta: { title: 'Permisos', requiresPermission: 'gestionar-permisos' },
+        },
+        {
+          path: 'activitat',
+          name: 'activity',
+          component: () => import('../views/ActivityView.vue'),
+          meta: { title: 'Activitat', requiresPermission: 'veure-auditoria' },
         },
         {
           path: 'perfil',

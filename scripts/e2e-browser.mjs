@@ -1,9 +1,12 @@
 // Prova E2E del frontend amb Chrome headless + CDP (sense dependències externes).
 //
 // Requisits previs:
-//   - Backend en marxa a http://localhost:8080 (docker compose up -d)
-//   - Frontend en marxa a http://localhost:5173 (npm run dev)
+//   - Backend en marxa (APP_URL del backend, per defecte http://localhost:8080)
+//   - Frontend en marxa (APP_URL, per defecte http://localhost:5173)
 //   - Google Chrome instal·lat (o defineix CHROME_PATH)
+//
+// Variables: APP_URL, CHROME_PATH, CDP_PORT, ADMIN_EMAIL, ADMIN_PASSWORD.
+// A la CI s'executa contra `vite preview` (APP_URL=http://localhost:4173).
 //
 // Ús: npm run e2e
 import { spawn } from 'node:child_process'
@@ -319,6 +322,20 @@ try {
   )
   check('El perfil desa els canvis i confirma', true)
 
+  // 7b. Activitat (auditoria)
+  await send('Page.navigate', { url: `${APP}/activitat` })
+  await waitFor(
+    async () => ((await evaluate('document.body.innerText')) || '').includes("Registre d'auditoria"),
+    { label: 'vista activitat' },
+  )
+  const activityBody = await evaluate('document.body.innerText')
+  check('La vista d\'activitat carrega', activityBody.includes('Activitat'))
+  await waitFor(
+    async () => ((await evaluate('document.body.innerText')) || '').includes('Inici de sessió'),
+    { label: 'fila d\'inici de sessió', timeout: 10000 },
+  )
+  check('L\'auditoria mostra un inici de sessió', true)
+
   // 8. Tanca la sessió
   await send('Page.navigate', { url: `${APP}/` })
   await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes('Tanca la sessió'), { label: 'botó logout' })
@@ -336,6 +353,53 @@ try {
   await send('Page.navigate', { url: `${APP}/usuaris` })
   await sleep(1500)
   check('Ruta protegida sense sessió redirigeix a login', (await evaluate('location.pathname')) === '/login')
+
+  // 9. Recuperació de contrasenya
+  await send('Page.navigate', { url: `${APP}/oblidar-contrasenya` })
+  await waitFor(async () => await evaluate('!!document.querySelector("input#email")'), { label: 'form oblidar' })
+  await evaluate(`
+    (() => {
+      const el = document.querySelector('input#email')
+      const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+      s.call(el, '${EMAIL}')
+      el.dispatchEvent(new Event('input', { bubbles: true }))
+      document.querySelector('form button[type=submit]').click()
+      return true
+    })()
+  `)
+  await waitFor(
+    async () => {
+      const text = ((await evaluate('document.body.innerText')) || '').toLowerCase()
+      // Pot ser el missatge d'èxit o el d'espera (límit d'intents).
+      return text.includes('enviat') || text.includes('espera un moment')
+    },
+    { label: 'confirmació recuperació' },
+  )
+  check('La recuperació de contrasenya respon', true)
+
+  // 10. Registre d'un usuari nou
+  const newAccount = `e2e-nou-${Date.now()}@gestiofe.local`
+  await send('Page.navigate', { url: `${APP}/registre` })
+  await waitFor(async () => await evaluate('!!document.querySelector("input#name")'), { label: 'form registre' })
+  await evaluate(`
+    (() => {
+      const set = (sel, val) => {
+        const el = document.querySelector(sel)
+        const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+        s.call(el, val)
+        el.dispatchEvent(new Event('input', { bubbles: true }))
+      }
+      set('input#name', 'Usuari Registrat E2E')
+      set('input#email', '${newAccount}')
+      set('input#password', 'secret1234')
+      set('input#password_confirmation', 'secret1234')
+      document.querySelector('form button[type=submit]').click()
+      return true
+    })()
+  `)
+  await waitFor(async () => (await evaluate('location.pathname')) === '/', { label: 'registre -> panell', timeout: 20000 })
+  await waitFor(async () => ((await evaluate('document.body.innerText')) || '').includes('Hola,'), { label: 'panell post-registre' })
+  check('El registre crea el compte i inicia la sessió', true)
 
   check('Cap error a la consola del navegador', consoleErrors.length === 0, JSON.stringify(consoleErrors.slice(0, 3)))
 } catch (error) {

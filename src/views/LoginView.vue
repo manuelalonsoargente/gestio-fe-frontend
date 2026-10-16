@@ -55,6 +55,11 @@ async function handleSubmit() {
         class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
         @submit.prevent="handleSubmit"
       >
+        <div v-if="route.query.restablert" class="flex items-start gap-2 rounded-lg bg-teal-50 p-3 text-sm text-teal-700">
+          <i class="pi pi-check-circle mt-0.5" />
+          <span>Contrasenya restablida. Ja pots iniciar la sessió.</span>
+        </div>
+
         <div v-if="error" class="flex items-start gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-700">
           <i class="pi pi-exclamation-circle mt-0.5" />
           <span>{{ error }}</span>
@@ -88,6 +93,15 @@ async function handleSubmit() {
           <i v-else class="pi pi-sign-in" />
           <span>{{ loading ? 'Comprovant…' : 'Accedeix' }}</span>
         </Button>
+
+        <div class="flex items-center justify-between text-sm">
+          <RouterLink :to="{ name: 'forgot-password' }" class="font-medium text-teal-700 hover:underline">
+            Has oblidat la contrasenya?
+          </RouterLink>
+          <RouterLink :to="{ name: 'register' }" class="font-medium text-teal-700 hover:underline">
+            Crea un compte
+          </RouterLink>
+        </div>
       </form>
 
       <p class="mt-4 text-center text-xs text-slate-400">

@@ -1,0 +1,92 @@
+name: E2E
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: Prova de navegador (frontend + backend)
+    runs-on: ubuntu-latest
+    if: ${{ vars.BACKEND_REPO != '' }}
+
+    env:
+      APP_URL: http://localhost:4173
+      VITE_API_BASE_URL: http://localhost:8080/api
+      DB_CONNECTION: sqlite
+      DB_DATABASE: ${{ github.workspace }}/backend/database/database.sqlite
+      SESSION_DRIVER: file
+      SESSION_DOMAIN: localhost
+      SANCTUM_STATEFUL_DOMAINS: localhost:4173
+      CORS_ALLOWED_ORIGINS: http://localhost:4173
+      FRONTEND_URL: http://localhost:4173
+      MAIL_MAILER: log
+      APP_LOCALE: ca_ES
+      APP_FALLBACK_LOCALE: en
+
+    steps:
+      - name: Clona el frontend
+        uses: actions/checkout@v4
+
+      - name: Clona el backend
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.BACKEND_REPO }}
+          path: backend
+
+      - name: Prepara PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo_sqlite, sqlite3
+          coverage: none
+
+      - name: Prepara Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Instal·la Chrome
+        id: chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Prepara el backend
+        working-directory: backend
+        run: |
+          composer install --no-interaction --prefer-dist --no-progress
+          cp .env.example .env
+          touch database/database.sqlite
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan db:seed --force
+
+      - name: Arranca el backend
+        working-directory: backend
+        run: |
+          php artisan serve --host=127.0.0.1 --port=8080 > /tmp/backend.log 2>&1 &
+          npx --yes wait-on@8 http://127.0.0.1:8080/api/health --timeout 60000
+
+      - name: Instal·la dependències del frontend
+        run: npm ci
+
+      - name: Compila el frontend
+        run: npm run build
+
+      - name: Arranca el frontend
+        run: |
+          npm run preview -- --port 4173 --strictPort > /tmp/frontend.log 2>&1 &
+          npx --yes wait-on@8 http://127.0.0.1:4173 --timeout 60000
+
+      - name: Executa la prova E2E
+        run: npm run e2e
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          ADMIN_EMAIL: admin@gestiofe.local
+          ADMIN_PASSWORD: admin1234
+
+      - name: Mostra els logs del backend
+        if: failure()
+        run: cat /tmp/backend.log

@@ -21,6 +21,7 @@ const navItems = computed<NavItem[]>(() =>
       { name: 'users', label: 'Usuaris', icon: 'pi pi-users', permission: 'gestionar-usuaris' },
       { name: 'roles', label: 'Rols', icon: 'pi pi-shield', permission: 'gestionar-rols' },
       { name: 'permissions', label: 'Permisos', icon: 'pi pi-key', permission: 'gestionar-permisos' },
+      { name: 'activity', label: 'Activitat', icon: 'pi pi-history', permission: 'veure-auditoria' },
       { name: 'profile', label: 'El meu perfil', icon: 'pi pi-user' },
     ] as NavItem[]
   ).filter((item) => !item.permission || auth.can(item.permission)),
