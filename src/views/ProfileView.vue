@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
-import InputPassword from 'primevue/inputpassword'
+import Password from 'primevue/password'
 import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
 import { useToast } from 'primevue/usetoast'
@@ -155,8 +155,8 @@ async function savePassword(): Promise<void> {
 
       <div class="flex flex-col gap-1.5">
         <label for="profile-current" class="text-sm font-medium text-slate-700">Contrasenya actual</label>
-        <InputPassword
-          id="profile-current"
+        <Password
+          inputId="profile-current"
           v-model="passwordForm.current_password"
           autocomplete="current-password"
           fluid
@@ -170,8 +170,8 @@ async function savePassword(): Promise<void> {
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="flex flex-col gap-1.5">
           <label for="profile-password" class="text-sm font-medium text-slate-700">Nova contrasenya</label>
-          <InputPassword
-            id="profile-password"
+          <Password
+            inputId="profile-password"
             v-model="passwordForm.password"
             autocomplete="new-password"
             fluid
@@ -184,8 +184,8 @@ async function savePassword(): Promise<void> {
           <label for="profile-password-confirm" class="text-sm font-medium text-slate-700">
             Repeteix la contrasenya
           </label>
-          <InputPassword
-            id="profile-password-confirm"
+          <Password
+            inputId="profile-password-confirm"
             v-model="passwordForm.password_confirmation"
             autocomplete="new-password"
             fluid

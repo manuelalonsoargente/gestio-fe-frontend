@@ -5,7 +5,7 @@ import DataTable, { type DataTablePageEvent, type DataTableSortEvent } from 'pri
 import Dialog from 'primevue/dialog'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
-import InputPassword from 'primevue/inputpassword'
+import Password from 'primevue/password'
 import InputText from 'primevue/inputtext'
 import MultiSelect from 'primevue/multiselect'
 import Tag from 'primevue/tag'
@@ -353,8 +353,8 @@ onMounted(async () => {
               {{ editing ? `buida per a mantindre l'actual` : 'mínim 8 caràcters' }}
             </span>
           </label>
-          <InputPassword
-            id="user-password"
+          <Password
+            inputId="user-password"
             v-model="form.password"
             fluid
             :invalid="Boolean(formErrors.password)"

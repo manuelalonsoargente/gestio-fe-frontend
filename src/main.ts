@@ -81,9 +81,8 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {
-  // Llicència PrimeUI (gratuïta Community via https://primeui.dev). Sense clau,
-  // PrimeVue 5 mostra el banner "Invalid PrimeUI License".
-  license: import.meta.env.VITE_PRIMEUI_LICENSE || undefined,
+  // PrimeVue 4 (MIT). Si es torna a v5, caldria afegir `license` amb una
+  // clau PrimeUI (VITE_PRIMEUI_LICENSE) per a evitar el banner de llicència.
   theme: {
     preset: theme,
     options: {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
-import InputPassword from 'primevue/inputpassword'
+import Password from 'primevue/password'
 import InputText from 'primevue/inputtext'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -93,8 +93,8 @@ async function handleSubmit() {
 
         <div class="flex flex-col gap-1.5">
           <label for="password" class="text-sm font-medium text-slate-700">Contrasenya</label>
-          <InputPassword
-            id="password"
+          <Password
+            inputId="password"
             v-model="password"
             autocomplete="new-password"
             fluid
@@ -107,8 +107,8 @@ async function handleSubmit() {
           <label for="password_confirmation" class="text-sm font-medium text-slate-700">
             Repetix la contrasenya
           </label>
-          <InputPassword
-            id="password_confirmation"
+          <Password
+            inputId="password_confirmation"
             v-model="passwordConfirmation"
             autocomplete="new-password"
             fluid
