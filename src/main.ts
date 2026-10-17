@@ -9,28 +9,28 @@ import App from './App.vue'
 import router from './router'
 import './style.css'
 
-// Tema Aura amb el color primari en teal (coherent amb la marca de l'aplicació).
+// Tema Aura amb el color primari de l'IES Mestre Ramon Esteve (blau corporatiu).
 const theme = {
   ...Aura,
   semantic: {
     ...Aura.semantic,
     primary: {
       ...Aura.semantic?.primary,
-      50: '{teal.50}',
-      100: '{teal.100}',
-      200: '{teal.200}',
-      300: '{teal.300}',
-      400: '{teal.400}',
-      500: '{teal.500}',
-      600: '{teal.600}',
-      700: '{teal.700}',
-      800: '{teal.800}',
-      900: '{teal.900}',
-      950: '{teal.950}',
-      color: 'light-dark({primary.500}, {primary.400})',
+      50: '#eef6fb',
+      100: '#d8ebf6',
+      200: '#b1d7ec',
+      300: '#7cbbdd',
+      400: '#3d9acb',
+      500: '#007cc8',
+      600: '#0067a6',
+      700: '#004f80',
+      800: '#07405f',
+      900: '#0a2f45',
+      950: '#041c2b',
+      color: 'light-dark({primary.600}, {primary.400})',
       contrastColor: 'light-dark(#ffffff, {surface.900})',
-      hoverColor: 'light-dark({primary.600}, {primary.300})',
-      activeColor: 'light-dark({primary.700}, {primary.200})',
+      hoverColor: 'light-dark({primary.700}, {primary.300})',
+      activeColor: 'light-dark({primary.800}, {primary.200})',
     },
   },
 } as typeof Aura

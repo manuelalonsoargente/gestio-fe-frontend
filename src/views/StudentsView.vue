@@ -298,7 +298,7 @@ onMounted(() => {
           <template #body="{ data }">
             <div class="flex items-center gap-2">
               <span
-                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-xs font-semibold text-teal-700"
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-semibold text-brand-700"
               >
                 {{ (data as Student).name.slice(0, 1).toUpperCase() }}
               </span>

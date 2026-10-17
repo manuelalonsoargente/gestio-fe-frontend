@@ -4,6 +4,24 @@
 @theme {
   --font-sans:
     'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Paleta corporativa de l'IES Mestre Ramon Esteve (intranet FP). */
+  --color-brand-50: #eef6fb;
+  --color-brand-100: #d8ebf6;
+  --color-brand-200: #b1d7ec;
+  --color-brand-300: #7cbbdd;
+  --color-brand-400: #3d9acb;
+  --color-brand-500: #007cc8;
+  --color-brand-600: #0067a6;
+  --color-brand-700: #004f80;
+  --color-brand-800: #07405f;
+  --color-brand-900: #0a2f45;
+  --color-brand-950: #041c2b;
+
+  /* Superfícies de la intranet FP de l'IES MRE. */
+  --color-canvas: #f5f6f8;
+  --color-line: #d9dee4;
+
   --shadow-card:
     0 1px 2px 0 rgb(15 23 42 / 0.05), 0 1px 3px 0 rgb(15 23 42 / 0.04);
   --shadow-card-hover:
@@ -18,8 +36,8 @@ body,
 
 body {
   margin: 0;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #f5f6f8;
+  color: #1f2933;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,6 +45,6 @@ body {
 
 @layer components {
   .card {
-    @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-card;
+    @apply rounded-lg border border-line bg-white p-5 shadow-card;
   }
 }

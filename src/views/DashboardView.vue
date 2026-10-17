@@ -42,7 +42,7 @@ onMounted(async () => {
   <div class="mx-auto flex max-w-5xl flex-col gap-6">
     <header class="flex items-center gap-4">
       <div
-        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500 to-teal-700 text-lg font-semibold text-white shadow-sm shadow-teal-600/25"
+        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-lg font-semibold text-white shadow-sm shadow-brand-600/25"
       >
         {{ auth.initials }}
       </div>
@@ -74,7 +74,7 @@ onMounted(async () => {
         <div class="flex items-center justify-between">
           <span class="text-sm font-medium text-slate-500">Usuaris</span>
           <span
-            class="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-50 text-teal-600"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600"
           >
             <i class="pi pi-users" />
           </span>
@@ -82,7 +82,7 @@ onMounted(async () => {
         <p class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">{{ usersTotal }}</p>
         <RouterLink
           :to="{ name: 'users' }"
-          class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-teal-800"
+          class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:text-brand-800"
         >
           Gestionar usuaris
           <i class="pi pi-arrow-right text-xs" />
@@ -96,7 +96,7 @@ onMounted(async () => {
         <div class="flex items-center justify-between">
           <span class="text-sm font-medium text-slate-500">Rols</span>
           <span
-            class="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-50 text-sky-600"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-600"
           >
             <i class="pi pi-shield" />
           </span>
@@ -104,7 +104,7 @@ onMounted(async () => {
         <p class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">{{ rolesTotal }}</p>
         <RouterLink
           :to="{ name: 'roles' }"
-          class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-teal-800"
+          class="mt-3 inline-flex items-center gap-1 text-sm font-medium text-brand-700 hover:text-brand-800"
         >
           Gestionar rols
           <i class="pi pi-arrow-right text-xs" />

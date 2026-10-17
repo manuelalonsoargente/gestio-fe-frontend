@@ -89,7 +89,7 @@ async function savePassword(): Promise<void> {
   <div class="mx-auto flex max-w-3xl flex-col gap-6">
     <header class="flex items-center gap-4">
       <div
-        class="flex h-14 w-14 items-center justify-center rounded-full bg-teal-600 text-lg font-semibold text-white"
+        class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-lg font-semibold text-white"
       >
         {{ auth.initials }}
       </div>

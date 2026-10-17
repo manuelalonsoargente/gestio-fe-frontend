@@ -69,17 +69,13 @@ async function handleLogout() {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-slate-50">
+  <div class="flex min-h-screen bg-canvas">
     <aside
-      class="hidden w-64 shrink-0 flex-col border-r border-slate-200 bg-white p-4 md:flex"
+      class="hidden w-64 shrink-0 flex-col border-r border-line bg-white p-4 md:flex"
     >
-      <div class="mb-2 flex items-center gap-2.5 px-2 py-1">
-        <div
-          class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-teal-700 text-white shadow-sm shadow-teal-600/25"
-        >
-          <i class="pi pi-briefcase text-lg" />
-        </div>
-        <div>
+      <div class="mb-3 flex items-center gap-2.5 px-1 py-1">
+        <img src="/logo-fp.png" alt="IES Mestre Ramon Esteve" class="h-9 w-auto" />
+        <div class="border-l-2 border-brand-500 pl-2.5">
           <p class="text-sm leading-tight font-semibold text-slate-900">Gestió FE</p>
           <p class="text-[11px] text-slate-500">Formació en Empresa</p>
         </div>
@@ -100,13 +96,13 @@ async function handleLogout() {
             class="relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
             :class="
               isActive(item.name)
-                ? 'bg-teal-50 text-teal-800'
+                ? 'bg-brand-50 text-brand-800'
                 : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
             "
           >
             <span
               v-if="isActive(item.name)"
-              class="absolute inset-y-1.5 left-0 w-0.5 rounded-full bg-teal-600"
+              class="absolute inset-y-1.5 left-0 w-0.5 rounded-full bg-brand-600"
             />
             <i :class="item.icon" />
             {{ item.label }}
@@ -114,13 +110,13 @@ async function handleLogout() {
         </template>
       </nav>
 
-      <div class="mt-auto border-t border-slate-200 pt-4">
+      <div class="mt-auto border-t border-line pt-4">
         <RouterLink
           :to="{ name: 'profile' }"
           class="mb-3 flex items-center gap-3 rounded-lg px-1 py-1 transition-colors hover:bg-slate-100"
         >
           <div
-            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-600 text-sm font-semibold text-white ring-2 ring-teal-100"
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-semibold text-white ring-2 ring-brand-100"
           >
             {{ auth.initials }}
           </div>
@@ -142,14 +138,10 @@ async function handleLogout() {
 
     <div class="flex min-w-0 flex-1 flex-col">
       <header
-        class="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 md:hidden"
+        class="flex items-center justify-between border-b border-line bg-white px-4 py-3 md:hidden"
       >
         <div class="flex items-center gap-2">
-          <div
-            class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-500 to-teal-700 text-white"
-          >
-            <i class="pi pi-briefcase text-sm" />
-          </div>
+          <img src="/logo-fp.png" alt="IES Mestre Ramon Esteve" class="h-8 w-auto" />
           <span class="font-semibold text-slate-800">Gestió FE</span>
         </div>
         <button
@@ -162,7 +154,7 @@ async function handleLogout() {
         </button>
       </header>
 
-      <nav class="flex gap-1 overflow-x-auto border-b border-slate-200 bg-white px-2 py-2 md:hidden">
+      <nav class="flex gap-1 overflow-x-auto border-b border-line bg-white px-2 py-2 md:hidden">
         <RouterLink
           v-for="item in flatItems"
           :key="item.name"
@@ -170,7 +162,7 @@ async function handleLogout() {
           class="flex shrink-0 items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
           :class="
             isActive(item.name)
-              ? 'bg-teal-50 text-teal-800'
+              ? 'bg-brand-50 text-brand-800'
               : 'text-slate-600 hover:bg-slate-100'
           "
         >
